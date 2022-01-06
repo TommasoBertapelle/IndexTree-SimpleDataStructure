@@ -52,7 +52,7 @@ class TestMyTree(unittest.TestCase):
         
         self.assertTrue(np.array_equal(root_obj.content.get_data(), self.data))         # 3.
         self.assertTrue(root_obj.content.get_dataParam_keys() == self.dataParam.keys()) # 3.        
-    def test_addNameNode(self):
+    def test_addNode(self):
         """
          Adding new node, checking if:
          
@@ -68,10 +68,10 @@ class TestMyTree(unittest.TestCase):
         dataParam_lvl1_n1 = {'smpRate': 31.7e3, \
                              'pwrLO'  : 19.13e-3}
         
-        self.dataNamedTree.addNamedNode(parent   = parentNodeName,                   \
-                                        content  = DataContainer(data_lvl1_n1,       \
-                                                                 dataParam_lvl1_n1), \
-                                        nameNode = newNodeName)
+        self.dataNamedTree.addNode(parent   = parentNodeName,                   \
+                                   content  = DataContainer(data_lvl1_n1,       \
+                                                            dataParam_lvl1_n1), \
+                                   nameNode = newNodeName)
                                         
         parentNodeTree_obj = self.dataNamedTree.node_dict[parentNodeName]
         newTreeNode_obj    = self.dataNamedTree.node_dict[newNodeName]
