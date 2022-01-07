@@ -1,6 +1,9 @@
 from index_tree.NamedTreeNode import NamedTreeNode
 
-import graphviz
+try:
+    import graphviz
+except:
+    print('Module graphviz NOT found, however NOT USEFUL for unit-testing')
 #******************TODO******************
 #Remove TreeNode Name with Node Name
 #******************TODO******************
