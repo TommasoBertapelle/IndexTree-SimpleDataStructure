@@ -2,10 +2,9 @@ from index_tree.NamedTreeNode import NamedTreeNode
 
 try:
     import graphviz
-except:
+except ModuleNotFoundError:
     print('Module graphviz NOT found, however NOT USEFUL for unit-testing')
 #******************TODO******************
-#Remove TreeNode Name with Node Name
 #******************TODO******************
 
 class MyTree(object):
@@ -46,6 +45,46 @@ class MyTree(object):
                                                  child    = [],      \
                                                  content  = content, \
                                                  nameNode = nameNode)
+                                                 
+    def removeNode(self, nameNode):
+        """"""
+        #*********TODO*********
+        # Handle the case when someone wants to delete
+        # the root node
+        #*********TODO*********
+        if not self.isString(nameNode):
+            raise TypeError ('expected <class \'str\'>, got '+str(type(nameNode)))
+            
+        if not self.isNodePresent(nameNode):    #<-- Evaluate if necessary, exploit dict excption
+            raise TypeError ('node not present')
+            
+        if self.isRoot(nameNode):
+            raise TypeError ('CANNOT delete the root') #<-- evaluate if TypeError is appropriate
+            
+        delNode_list = []        
+        for child in self.node_dict[nameNode].child:
+        
+#            print(child)
+            
+            if self.isLeaf(child):
+                delNode_list.append(self.node_dict[child])
+#                print(self.node_dict[self.node_dict[child].parent].child)
+#                self.node_dict[self.node_dict[child].parent].child.remove(child)
+#                print(self.node_dict[self.node_dict[child].parent].child)
+                del self.node_dict[child]
+                
+            else:
+                delNode_list.append(self.removeNode(child))
+                
+        delNode_list.append (self.node_dict[nameNode])
+#        print(self.node_dict[self.node_dict[nameNode].parent].child)
+        self.node_dict[self.node_dict[nameNode].parent].child.remove(nameNode)
+#        print(self.node_dict[self.node_dict[nameNode].parent].child)
+#        print(delNode_list)
+        del self.node_dict[nameNode]
+#        print(delNode_list)
+        
+        return delNode_list
                                                  
     def getNode(self, nameNode):
         """"""
